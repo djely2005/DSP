@@ -1,0 +1,22 @@
+Exercice 1:
+    Theoritical work:
+        1) What is the role of the firwin, lfilter functions in this code?
+        - firwin: This function design a filter using the window method.
+        - lfilter: This function filers data with an IIR or a FIR filter.
+        2) What is the purpose of the freqz function in the code?
+        - freqz: This function computes the frequency response of a digital filter.
+    Practical work:
+        1) Why is a Hamming window used in this code, and what effect does it have on the filter?
+        - We use the Hamming window because it reduces the ripple, giving you a more accurate idea of the original signal's frequency spectrum.
+        2) What does "pass_zero=True" mean in the firwin function?
+        - "pass_zero=True" means in the firwin function that the gain at the frequency 0 is 1 therefore the filter being a lowpass filter.
+        3) Why display both the frequency response and the signal spectrum before and after filtering?
+        - We display them so we can compare them, and as we can see the filtered signal gets attenuated at some point. 
+        4) What is the sample rate of the audio signal?
+        - The sample rate is 
+        5) Change the filter from lowpass to highpass and comment.
+        - We change that by setting pass_zero=True which will get us a highpass filter, and as we can see the frequency response is attenuated at first
+        then match the original at a certain point
+        6) Do steps 4 and 5 for another audio signal (of your choice). Pass this signal through the
+        filter and observe the effect of filtering on the signal and its frequency spectrum.
+        - Plot below:

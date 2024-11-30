@@ -1,0 +1,50 @@
+from scipy.signal import butter, cheby1, freqz, group_delay
+import numpy as np
+import matplotlib.pyplot as plt
+fe = 1000
+fc = 100
+degree = 20
+
+# Filtre Butterworth
+b_butter, a_butter = butter(degree, fc, btype='high', fs=fe)
+# Filtre Chebyshev Type I
+rp = 1 # Ripple (dB)
+b_cheby, a_cheby = cheby1(degree, rp, fc, btype='high', fs=fe)
+w_butter, h_butter = freqz(b_butter, a_butter, worN=8000, fs=fe)
+w_cheby, h_cheby = freqz(b_cheby, a_cheby, worN=8000, fs=fe)
+plt.figure(figsize=(10, 6))
+plt.subplot(2, 1, 1)
+plt.plot(w_butter, 20 * np.log10(abs(h_butter)), label='Butterworth')
+plt.plot(w_cheby, 20 * np.log10(abs(h_cheby)), label='Chebyshev Type I')
+plt.title("Frequency Response (Amplitude en dB)")
+plt.xlabel("Frequency (Hz)")
+plt.ylabel("Magnitude (dB)")
+plt.legend()
+plt.grid()
+plt.subplot(2, 1, 2)
+plt.plot(w_butter, abs(h_butter), label='Butterworth')
+plt.plot(w_cheby, abs(h_cheby), label='Chebyshev Type I')
+plt.title("Frequency Response(Amplitude)")
+plt.xlabel("Frequency (Hz)")
+plt.ylabel("Magnitude")
+plt.legend()
+plt.grid()
+plt.tight_layout()
+plt.show()
+w1, gd_butter = group_delay((b_butter, a_butter),fs=fe)
+w, gd_cheby = group_delay((b_cheby, a_cheby),fs=fe)
+plt.figure(figsize=(10, 6))
+plt.plot(w1, gd_butter, label='Retard de groupe(Butterworth)')
+plt.title("Retard de groupe du filtre Butterworth")
+plt.xlabel("Fre quence (Hz)")
+plt.ylabel("Retard (e chantillons)")
+plt.legend()
+plt.grid()
+plt.show()
+plt.plot(w, gd_cheby, label='Retard de groupe (Chebyshev Type I)')
+plt.title("Retard de groupe du filtre Chebyshev Type I")
+plt.xlabel("Fre quence (Hz)")
+plt.ylabel("Retard (e chantillons)")
+plt.legend()
+plt.grid()
+plt.show()

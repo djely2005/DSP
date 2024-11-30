@@ -1,0 +1,43 @@
+Exercice 2:
+    Theoritical work:
+        1) What is the purpose of the `remez` function, and why is it used here?
+        - The Remez algorithm is a methodology for locating the minimax rational approximation to a function. we use to average the ripples of our signal.
+        2) What do the parameters `f`, `m`, and `w` represent in the filter design, and how do they affect the output filter?
+        - f: A monotonic sequence containing the band edges.
+        - m: A sequence half the size of bands containing the desired gain in each of the specified bands.
+        - w: A relative weighting to give to each band region.
+        3) Why are the values of the edge frequencies `f` set to [0, 1600, 2000, fs/2]? What effect does this have on the filter's response?
+        - These values represent the band edges of the filter which means that if we change them the filter can gets attenuated faster or nearer.
+        The 0 sets the start of the response, 1600 when it starts to get attenuated, 2000 when it is attenuated and fs/2 when the filter stops.
+        4) What is the significance of the `m` parameter, set to [1, 0], in the design process?
+        - It is the desired gain of the specified gain, so 0-->1600 the gain is 1 and from 2000-->4000 the gain is 0
+        5) How does the weighting factor w influence the filter, and why are the weights set to [1,12]?
+        - If the filter assigns a larger weight to recent data (e.g., being larger for the most recent samples), the filter gives more importance to the recent measurements and becomes more responsive to changes in the input signal.
+        A smaller weight would imply that recent measurements have less influence, and the filter will emphasize older data more
+    Practical work:
+        1) What is the role of the freqz function, and what does it output?
+        - Compute the frequency response of a digital filter. 
+        It outputs w: The frequencies at which h was computed and h: The frequency response, as complex numbers.
+        2) Why is the frequency response plot displayed in two formats: dB scale and linear magnitude?
+        -
+        3) How would the filter's frequency response change if the filter length, specified by 53, were increased or decreased?
+        - The extremas would get smoother the more it increases and the ripples will be much more if it increases because as the point increases
+        the averaging will be greater.
+        4) How does setting fe=8000 impact the interpretation of frequency values within the filter design and frequency response?
+        - fe is the frequency sample, if we increases it the filter will mostly lean to attenuating the frequencies on the right side and leaving big ripples on the left side
+        and that is caused by the variable f being set as [0, 1600, 2000, fs/2] where we specify the ending of the filter as fs/2 which will make us have less computational power
+        on the right side if we still set 53. that will cause a ripple increase on the left side and a smoothing on the right side.
+        5) What information can be gathered from the shape of the frequency response, and how does it confirm the effectiveness of the filter design?
+        - This a lowpass filter that is very effectivene because of its small to nonexistant ripples which may cause loss of information or bad filtering
+        6) Represent the impulse response of the filter. Indicate which type (I, II, III, IV) it is.
+        - 
+        7) How could this code be modified to create a high-pass or band-pass filter instead of a low-pass filter?
+        - For the highpass filter we inverse the array m [1, 0]-->[0, 1] for band pass we put w = [0, 1, 0] and f= [0, 1600-transition,1600, 2000, 2000+transition,fs/2]
+        with transition = 200 for example.
+        8) What changes would be required to set different cutoff frequencies or to make the transition band narrower?
+        - We need to change the variable f and set 53 to a higher number so as to compute the averaging better.
+        9) How could the code be extended to visualize the phase response of the filter?
+        - Refer to the code. 
+        10) What would happen if the weighting for the passband or stopband were altered significantly?
+        - Ripple will change and it won't be smooth anymore
+        

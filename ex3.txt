@@ -1,0 +1,15 @@
+Exercice 3:
+    Theoritical work:
+        1) What is the role of the butter, cheby1, freqz, and iidesign functions in this code?
+        - butter: Design an Nth-order digital or analog Butterworth filter and return the filter coefficients.
+        - cheby1: Design an Nth-order digital or analog Chebyshev type I filter and return the filter coefficients.
+        - freqz: This function computes the frequency response of a digital filter.
+        - iidesign: not found
+    Practical work: 
+        1) What is the main difference between the Butterworth filter and the Chebyshev Type I filter in terms of frequency response?
+        - Chebyshev Type 1 has a really narrow transition band unlike Butterworth, however, Butterworth is smoother with less ripples.
+        2) Why is the transition band of the Chebyshev Type I filter narrower than that of the Butterworth filter?
+        - It is narrower because the filter can achieve a faster transition from the passband to the stopband due to Chebyshev filter being a type of filter
+        that has a steeper and sharper frequency response.
+        3) What is the impact of group delay on the signal for the Butterworth filter?
+        - less signal distortion 
