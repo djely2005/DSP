@@ -4,16 +4,18 @@ from scipy.io import wavfile
 from scipy.signal import firwin, lfilter, freqz
 
 # Load the audio signal (replace 'audio_with_noise.wav' with your file path)
-sample_rate, noisy_signal = wavfile.read('./sound/youhavealotofwork.wav')
+sample_rate, noisy_signal = wavfile.read('./sound/myaudio.wav')
+
 
 # Filter specifications
-cutoff_freq = 2000 
+cutoff_freq = 2000
 num_taps = 101 
 
 # design of a lowpass filter using hamming window
-lowpass_filter = firwin(num_taps, cutoff_freq, fs=sample_rate, window="hamming", pass_zero=True)
+lowpass_filter = firwin(num_taps, cutoff_freq, fs=sample_rate, window="hamming", pass_zero=False)
 
-filtered_signal = lfilter(lowpass_filter, 1.0, noisy_signal)
+filtered_signal = lfilter(lowpass_filter, 0.001, noisy_signal)
+print(filtered_signal)
 w, h = freqz(lowpass_filter, worN=8000) 
 frequencies = w * sample_rate / (2 * np.pi)
 plt.figure(figsize=(10, 4)) 
@@ -32,7 +34,7 @@ plt.ylabel("Amplitude")
 plt.legend() 
 plt.grid() 
 plt.show()
-wavfile.write('filtered_audio.wav', sample_rate, filtered_signal.astype(np.int16))
+wavfile.write('./sound/filtered_audio.wav', sample_rate, filtered_signal.astype(np.int16))
 
 
 
